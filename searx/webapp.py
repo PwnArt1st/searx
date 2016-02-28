@@ -119,7 +119,8 @@ _category_names = (gettext('files'),
                    gettext('videos'),
                    gettext('it'),
                    gettext('news'),
-                   gettext('map'))
+                   gettext('map'),
+                   gettext('science'))
 
 outgoing_proxies = settings['outgoing'].get('proxies', None)
 
@@ -326,6 +327,8 @@ def render(template_name, override_theme=None, **kwargs):
     kwargs['template_name'] = template_name
 
     kwargs['cookies'] = request.cookies
+
+    kwargs['instance_name'] = settings['general']['instance_name']
 
     kwargs['scripts'] = set()
     for plugin in request.user_plugins:
