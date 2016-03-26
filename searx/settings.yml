@@ -34,6 +34,10 @@ outgoing: # communication with search engines
 #        - 1.1.1.2
 
 engines:
+  - name : arch linux wiki
+    engine : archlinux
+    shortcut : al
+
   - name : wikipedia
     engine : mediawiki
     shortcut : wp
@@ -310,8 +314,8 @@ engines:
     shortcut : wa
     # You can use the engine using the official stable API, but you need an API key
     # See : http://products.wolframalpha.com/api/
-    #    engine : wolframalpha_api
-    #    api_key: 'apikey' # required!
+    # engine : wolframalpha_api
+    # api_key: '' # required!
     engine : wolframalpha_noapi
     timeout: 6.0
     categories : science
@@ -331,16 +335,20 @@ engines:
 
 locales:
     en : English
-    de : Deutsch
-    he : עברית
-    hu : Magyar
-    fr : Français
-    es : Español
-    it : Italiano
-    nl : Nederlands
+    bg : Български (Bulgarian)
+    de : Deutsch (German)
+    el_GR : Ελληνικά (Greek_Greece)
+    eo : Esperanto (Esperanto)
+    es : Español (Spanish)
+    fr : Français (French)
+    he : עברית (Hebrew)
+    hu : Magyar (Hungarian)
+    it : Italiano (Italian)
     ja : 日本語 (Japanese)
-    tr : Türkçe
-    pt : Português
-    ru : Russian
-    ro : Romanian
+    nl : Nederlands (Dutch)
+    pt : Português (Portuguese)
+    pt_BR : Português (Portuguese_Brazil)
+    ro : Română (Romanian)
+    ru : Русский (Russian)
+    tr : Türkçe (Turkish)
     zh : 中文 (Chinese)

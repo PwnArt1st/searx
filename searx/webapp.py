@@ -433,7 +433,7 @@ def index():
             csv.writerow([row.get(key, '') for key in keys])
         csv.stream.seek(0)
         response = Response(csv.stream.read(), mimetype='application/csv')
-        cont_disp = 'attachment;Filename=searx_-_{0}.csv'.format(search.query)
+        cont_disp = 'attachment;Filename=searx_-_{0}.csv'.format(search.query.encode('utf-8'))
         response.headers.add('Content-Disposition', cont_disp)
         return response
     elif search.request_data.get('format') == 'rss':
@@ -749,7 +749,8 @@ def opensearch():
 
     ret = render('opensearch.xml',
                  opensearch_method=method,
-                 host=get_base_url())
+                 host=get_base_url(),
+                 urljoin=urljoin)
 
     resp = Response(response=ret,
                     status=200,
