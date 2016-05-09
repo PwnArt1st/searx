@@ -1,0 +1,37 @@
+<div class="infobox">
+    <div class="suggestions-title">{{ infobox.infobox }}</div>
+    {% if infobox.img_src %}<img src="{{ image_proxify(infobox.img_src) }}" title="{{ infobox.infobox|striptags }}" alt="{{ infobox.infobox|striptags }}" />{% endif %}
+    <p>{{ infobox.content | safe }}</p>
+    {% if infobox.attributes %}
+        <table>
+            {% for attribute in infobox.attributes %}
+            <tr><td>{{ attribute.label }}</td><td>{{ attribute.value }}</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if infobox.urls %}
+        <div class="links">
+        {% for url in infobox.urls %}
+        <div class="link"><a href="{{ url.url }}" rel="noreferrer">{{ url.title }}</a></div>
+        {% endfor %}
+        </div>
+        <p></p>
+    {% endif %}
+</div>
+
+{% if infobox.relatedTopics %}
+    <div class="infobox">
+        {% for topic in infobox.relatedTopics %}
+            <div class="suggestions-title">{{ topic.name }}</div>
+            {% for suggestion in topic.suggestions %}
+                <div class="suggestion">
+                    <form method="{{ method or 'POST' }}" action="{{ url_for('index') }}">
+                        <input type="hidden" name="q" value="{{ suggestion }}">
+                        <input type="submit" value="{{ suggestion }}" />
+                    </form>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}
