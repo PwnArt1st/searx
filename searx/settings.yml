@@ -1,16 +1,17 @@
+
 general:
     debug : False # Debug mode, only for development
     instance_name : "searx" # displayed name
 
 search:
     safe_search : 0 # Filter results. 0: None, 1: Moderate, 2: Strict
-    autocomplete : "" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "wikipedia" - leave blank to turn it off by default
+    autocomplete : "google" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "wikipedia" - leave blank to turn it off by default
 
 server:
-    port : 8888
-    bind_address : "127.0.0.1" # address to listen on
-    secret_key : "ultrasecretkey" # change this!
-    base_url : False # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
+    port : 80
+    bind_address : "192.168.1.9" # address to listen on
+    secret_key : "4f5e7db3a36fa67cf74d33c7cf8deaad" # change this!
+    base_url : http://home.codenix.org # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
     image_proxy : False # Proxying image results through searx
 
 ui:
@@ -19,8 +20,8 @@ ui:
     default_locale : "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
 
 outgoing: # communication with search engines
-    request_timeout : 2.0 # seconds
-    useragent_suffix : "" # suffix of searx_useragent, could contain informations like an email address to the administrator
+    request_timeout : 6.0 # seconds
+    useragent_suffix : "PWNART" # suffix of searx_useragent, could contain informations like an email address to the administrator
 # uncomment below section if you want to use a proxy
 # see http://docs.python-requests.org/en/latest/user/advanced/#proxies
 # SOCKS proxies are not supported : see https://github.com/kennethreitz/requests/pull/478
@@ -54,6 +55,7 @@ engines:
   - name : bing images
     engine : bing_images
     shortcut : bii
+    disabled: true
 
   - name : bing news
     engine : bing_news
@@ -68,7 +70,6 @@ engines:
     content_xpath : //article[@class="repo-summary"]/p
     categories : it
     timeout : 4.0
-    disabled : True
     shortcut : bb
 
   - name : btdigg
@@ -107,9 +108,8 @@ engines:
     url_xpath : //dl[@class="results-list"]/dt[@class="result-title"]/a/@href
     title_xpath : //dl[@class="results-list"]/dt[@class="result-title"]/a/text()
     content_xpath : //dl[@class="results-list"]/dd[@class="result-details"]
-    categories : general
+    categories : science
     shortcut : ew
-    disabled : True
 
   - name : wikidata
     engine : wikidata
@@ -132,7 +132,6 @@ engines:
   - name : 1x
     engine : www1x
     shortcut : 1x
-    disabled : True
 
   - name : fdroid
     engine : fdroid
@@ -157,7 +156,7 @@ engines:
   - name : gigablast
     engine : gigablast
     shortcut : gb
-    disabled: True
+    disabled : True
 
   - name : gitlab
     engine : xpath
@@ -267,7 +266,6 @@ engines:
     engine : qwant
     shortcut : qw
     categories : general
-    disabled : True
 
   - name : qwant images
     engine : qwant
@@ -310,7 +308,6 @@ engines:
   - name : searchcode code
     engine : searchcode_code
     shortcut : scc
-    disabled : True
 
   - name : spotify
     engine : spotify
@@ -322,12 +319,13 @@ engines:
 # The language is an option. You can put any language written in english
 # Examples : English, French, German, Hungarian, Chinese...
 #    language : English
+    disabled : True
 
   - name : startpage
     engine : startpage
     shortcut : sp
     timeout : 6.0
-    disabled : True
+    disabled : False
 
   - name : ixquick
     engine : startpage
@@ -335,7 +333,7 @@ engines:
     search_url : 'https://www.ixquick.com/do/search'
     shortcut : iq
     timeout : 6.0
-    disabled : True
+    disabled : False
 
   - name : swisscows
     engine : swisscows
@@ -435,20 +433,5 @@ engines:
 
 locales:
     en : English
-    bg : Български (Bulgarian)
-    de : Deutsch (German)
-    el_GR : Ελληνικά (Greek_Greece)
-    eo : Esperanto (Esperanto)
-    es : Español (Spanish)
-    fr : Français (French)
-    he : עברית (Hebrew)
-    hu : Magyar (Hungarian)
-    it : Italiano (Italian)
-    ja : 日本語 (Japanese)
-    nl : Nederlands (Dutch)
-    pt : Português (Portuguese)
-    pt_BR : Português (Portuguese_Brazil)
-    ro : Română (Romanian)
-    ru : Русский (Russian)
-    tr : Türkçe (Turkish)
-    zh : 中文 (Chinese)
+
+
