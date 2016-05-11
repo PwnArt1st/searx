@@ -15,4 +15,4 @@ setup.cfg
 node_modules/
 
 .tx/
-settings.yml
+searx/settings.yml
