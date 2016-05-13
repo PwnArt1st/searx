@@ -1,7 +1,7 @@
 
 general:
     debug : False # Debug mode, only for development
-    instance_name : "pwnsearx" # displayed name
+    instance_name : "searx" # displayed name
 
 search:
     safe_search : 0 # Filter results. 0: None, 1: Moderate, 2: Strict
@@ -11,7 +11,7 @@ server:
     port : 80
     bind_address : "192.168.1.9" # address to listen on
     secret_key : "4f5e7db3a36fa67cf74d33c7cf8deaad" # change this!
-    base_url : http://searx.codenix.org # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
+    base_url : http://home.codenix.org # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
     image_proxy : False # Proxying image results through searx
 
 ui:
