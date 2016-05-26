@@ -98,6 +98,7 @@ class ResultContainer(object):
         self.infoboxes = []
         self._infobox_ids = {}
         self.suggestions = set()
+        self.spell_suggestions = set()
         self.answers = set()
 
     def extend(self, engine_name, results):
