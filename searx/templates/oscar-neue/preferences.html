@@ -1,9 +1,9 @@
-{% from 'oscar/macros.html' import preferences_item_header, preferences_item_header_rtl, preferences_item_footer, preferences_item_footer_rtl, checkbox_toggle %}
-{% extends "oscar/base.html" %}
+{% from 'oscar-neue/macros.html' import preferences_item_header, preferences_item_header_rtl, preferences_item_footer, preferences_item_footer_rtl, checkbox_toggle %}
+{% extends "oscar-neue/base.html" %}
 {% block title %}{{ _('preferences') }} - {% endblock %}
 {% block site_alert_warning_nojs %}
 <noscript>
-    {% include 'oscar/messages/js_disabled.html' %}
+    {% include 'oscar-neue/messages/js_disabled.html' %}
 </noscript>
 {% endblock %}
 {% block content %}
@@ -32,13 +32,13 @@
                     <div class="row form-group">
                         {% if rtl %}
                         <div class="col-sm-11 col-md-10">
-                            {% include 'oscar/categories.html' %}
+                            {% include 'oscar-neue/categories.html' %}
                         </div>
                         <label class="col-sm-3 col-md-2">{{ _('Default categories') }}</label>
                         {% else %}
                         <label class="col-sm-3 col-md-2">{{ _('Default categories') }}</label>
                         <div class="col-sm-11 col-md-10">
-                            {% include 'oscar/categories.html' %}
+                            {% include 'oscar-neue/categories.html' %}
                         </div>
                         {% endif %}
                     </div>
@@ -251,7 +251,7 @@
                     {% endfor %}
                 </table>
                 {% else %}
-                    {% include 'oscar/messages/no_cookies.html' %}
+                    {% include 'oscar-neue/messages/no_cookies.html' %}
                 {% endif %}
             </div>
         </div>

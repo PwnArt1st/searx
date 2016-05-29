@@ -1,4 +1,4 @@
-{% extends "oscar/base.html" %}
+{% extends "oscar-neue/base.html" %}
 {% block title %}{{ _('stats') }} - {% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -22,7 +22,7 @@
                 {% endfor %}
                 {% if not stat_category %}
                 <div class="col-sm-12 col-md-12">
-                    {% include 'oscar/messages/no_data_available.html' %}
+                    {% include 'oscar-neue/messages/no_data_available.html' %}
                 </div>
                 {% endif %}
             </div>

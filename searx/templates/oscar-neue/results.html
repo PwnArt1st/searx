@@ -1,4 +1,4 @@
-{% extends "oscar/base.html" %}
+{% extends "oscar-neue/base.html" %}
 {% block title %}{{ q }} - {% endblock %}
 {% block meta %}<link rel="alternate" type="application/rss+xml" title="Searx search: {{ q }}" href="{{ url_for('index') }}?q={{ q|urlencode }}&amp;format=rss&amp;{% for category in selected_categories %}category_{{ category }}=1&amp;{% endfor %}pageno={{ pageno }}">
 {% endblock %}
@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-sm-8" id="main_results">
             <h1 class="sr-only">{{ _('Search results') }}</h1>
-            {% include 'oscar/search.html' %}
+            {% include 'oscar-neue/search.html' %}
 
             {% if spell_suggestions %}
             <div style="overflow: auto;" class="result spell_suggestions">
@@ -34,15 +34,15 @@
             <div class="result {% if result['template'] %}result-{{ result.template|replace('.html', '') }}{% else %}result-default{% endif %}">
                 {% set index = loop.index %}
                 {% if result.template %}
-                    {% include get_result_template('oscar', result['template']) %}
+                    {% include get_result_template('oscar-neue', result['template']) %}
                 {% else %}
-                    {% include 'oscar/result_templates/default.html' %}
+                    {% include 'oscar-neue/result_templates/default.html' %}
                 {% endif %}
             </div>
             {% endfor %}
 
             {% if not results and not answers %}
-                {% include 'oscar/messages/no_results.html' %}
+                {% include 'oscar-neue/messages/no_results.html' %}
             {% endif %}
 
             <div class="clearfix"></div>
@@ -95,7 +95,7 @@
         <div class="col-sm-4" id="sidebar_results">
             {% if infoboxes %}
                 {% for infobox in infoboxes %}
-                    {% include 'oscar/infobox.html' %}
+                    {% include 'oscar-neue/infobox.html' %}
                 {% endfor %}
             {% endif %}
 

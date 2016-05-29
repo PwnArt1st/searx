@@ -1,4 +1,4 @@
-{% from 'oscar/macros.html' import draw_favicon %}
+{% from 'oscar-neue/macros.html' import draw_favicon %}
 
 
     <a href="{{ result.img_src }}" rel="noreferrer" data-toggle="modal" data-target="#modal-{{ index }}" style="background: url('{% if result.thumbnail_src %}{{ image_proxify(result.thumbnail_src) }}{% else %}{{ image_proxify(result.img_src) }}{% endif %}') no-repeat center center;"></a>
