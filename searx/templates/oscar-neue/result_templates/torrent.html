@@ -1,0 +1,25 @@
+{% from 'oscar/macros.html' import result_header, result_sub_header, result_footer, result_footer_rtl, icon %}
+
+{{ result_header(result, favicons) }}
+
+
+<p class="result-content"><span class="torrent-download">{{ result_sub_header(result) }}</span> | <span class="seeders"><i class="fa fa-arrow-up" aria-hidden="true"></i> {{ _('Seeder') }} <b>{{ result.seed }}</b></span> - <span class="leechers"><i class="fa  fa-arrow-down" aria-hidden="true"></i> {{ _('Leecher') }} <b>{{ result.leech }}</b></span>
+
+{% if result.filesize %} - {{ icon('floppy-disk') }} {{ _('Filesize') }} 
+    <b>
+        {% if result.filesize < 1024 %}{{ result.filesize }} {{ _('Bytes') }}
+        {% elif result.filesize < 1024*1024 %}{{ '{0:0.2f}'.format(result.filesize/1024) }} {{ _('kiB') }}
+        {% elif result.filesize < 1024*1024*1024 %}{{ '{0:0.2f}'.format(result.filesize/1024/1024) }} {{ _('MiB') }}
+        {% elif result.filesize < 1024*1024*1024*1024 %}{{ '{0:0.2f}'.format(result.filesize/1024/1024/1024) }} {{ _('GiB') }}
+        {% else %}{{ '{0:0.2f}'.format(result.filesize/1024/1024/1024/1024) }} {{ _('TiB') }}{% endif %}
+    </b>{% endif %}
+{% if result.files %} - {{ icon('file') }} {{ _('Number of Files') }} <b>{{ result.files }}</b>{% endif %}
+<br />
+{% if result.content %}<p  class="result-content"><br/>{{ result.content|safe }}</p>{% endif %}
+</p>
+
+{% if rtl %}
+{{ result_footer_rtl(result) }}
+{% else %}
+{{ result_footer(result) }}
+{% endif %}
