@@ -13,7 +13,47 @@
 </div>
 {% endif %}
 
+<small> &bull;
+    <a class="text-info btn-collapse collapsed cursor-pointer disabled_if_nojs video-download-link"
+       id="toggle-video-links-{{ index }}"
+       data-toggle="collapse"
+       data-target="#result-download-{{ index }}"
+       data-btn-text-collapsed="{{ _('download video') }}"
+       data-btn-text-not-collapsed="{{ _('hide') }}"
+       data-video-url="{{ result.url }}"
+       data-hash="{{ secret_hash(result.url) }}"
+       data-index="{{ index }}"
+       data-result-table="#result-table-{{ index }}"
+       data-result-panel="#result-panel-{{ index }}"
+       data-load-icon="#load-icon-{{ index }}"
+       data-filter="filter">
+        {{ icon('download') }} {{ _('download video') }}
+    </a>
+</small>
+
 <div class="container-fluid">
+    <div class="row collapse" id="result-download-{{ index }}">
+        <div class="text-center" id="load-icon-{{ index }}">
+            <img src="{{ url_for('static', filename='img/loader.gif') }}" alt="Loading ..."/>
+        </div>
+        <div class="panel panel-default hidden" id="result-panel-{{ index }}">
+            <div class="table-responsive" style="overflow: auto">
+                <table class="table table-condensed table-hover"
+                       id="result-table-{{ index }}"
+                       data-index="{{ index }}"
+                       data-field-url="url">
+                    <tr class="result-table-header">
+                        <th class="sortable" data-field="name">format</th>
+                        <th class="sortable" data-field="note">comment</th>
+                        <th class="sortable" data-field="ext">extension</th>
+                        <th class="sortable" data-field="resolution">resolution</th>
+                        <th class="sortable" data-field="ac">audio</th>
+                        <th class="sortable" data-field="vc">video</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <a href="{{ result.url }}" rel="noreferrer"><img class="thumbnail col-xs-6 col-sm-4 col-md-4 result-content" src="{{ image_proxify(result.thumbnail) }}" alt="{{ result.title|striptags }} {{ result.engine }}" /></a>
         {% if result.content %}<p class="col-xs-12 col-sm-8 col-md-8 result-content">{{ result.content|safe }}</p>{% endif %}

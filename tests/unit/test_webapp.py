@@ -36,6 +36,7 @@ class ViewsTestCase(SearxTestCase):
             search_self.result_container = Mock(get_ordered_results=lambda: self.test_results,
                                                 answers=set(),
                                                 suggestions=set(),
+                                                spell_suggestions=set(),
                                                 infoboxes=[],
                                                 results=self.test_results,
                                                 results_length=lambda: len(self.test_results))

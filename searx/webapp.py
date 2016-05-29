@@ -65,6 +65,7 @@ from searx.query import Query
 from searx.autocomplete import searx_bang, backends as autocomplete_backends
 from searx.plugins import plugins
 from searx.preferences import Preferences
+from searx.video_links import extract_video_links, default_extensions
 
 # check if the pyopenssl, ndg-httpsclient, pyasn1 packages are installed.
 # They are needed for SSL connection without trouble, see #298
@@ -249,11 +250,15 @@ def image_proxify(url):
     if not request.preferences.get_value('image_proxy'):
         return url
 
-    hash_string = url + settings['server']['secret_key']
-    h = hashlib.sha256(hash_string.encode('utf-8')).hexdigest()
+    h = secret_hash(url)
 
     return '{0}?{1}'.format(url_for('image_proxy'),
                             urlencode(dict(url=url.encode('utf-8'), h=h)))
+
+
+def secret_hash(url):
+    hash_string = url + settings['server']['secret_key']
+    return hashlib.sha256(hash_string.encode('utf-8')).hexdigest()
 
 
 def render(template_name, override_theme=None, **kwargs):
@@ -319,6 +324,8 @@ def render(template_name, override_theme=None, **kwargs):
 
     kwargs['instance_name'] = settings['general']['instance_name']
 
+    kwargs['secret_hash'] = secret_hash
+
     kwargs['scripts'] = set()
     for plugin in request.user_plugins:
         for script in plugin.js_dependencies:
@@ -336,7 +343,7 @@ def render(template_name, override_theme=None, **kwargs):
 @app.before_request
 def pre_request():
     # merge GET, POST vars
-    preferences = Preferences(themes, categories.keys(), engines, plugins)
+    preferences = Preferences(themes, categories.keys(), engines, plugins, default_extensions())
     preferences.parse_cookies(request.cookies)
     request.preferences = preferences
 
@@ -452,6 +459,7 @@ def index():
         pageno=search.pageno,
         base_url=get_base_url(),
         suggestions=search.result_container.suggestions,
+        spell_suggestions=search.result_container.spell_suggestions,
         answers=search.result_container.answers,
         infoboxes=search.result_container.infoboxes,
         theme=get_current_theme_name(),
@@ -464,6 +472,14 @@ def about():
     """Render about page"""
     return render(
         'about.html',
+    )
+
+
+@app.route('/faq', methods=['GET'])
+def faq():
+    """Render faq page"""
+    return render(
+        'faq.html',
     )
 
 
@@ -542,6 +558,7 @@ def preferences():
     lang = request.preferences.get_value('language')
     disabled_engines = request.preferences.engines.get_disabled()
     allowed_plugins = request.preferences.plugins.get_enabled()
+    selected_extensions = request.preferences.get_value('extensions')
 
     # stats for preferences page
     stats = {}
@@ -554,6 +571,8 @@ def preferences():
             if e.timeout > settings['outgoing']['request_timeout']:
                 stats[e.name]['warn_timeout'] = True
 
+    # get first element [0], the engine time,
+    # and then the second element [1] : the time (the first one is the label)
     for engine_stat in get_engines_stats()[0][1]:
         stats[engine_stat.get('name')]['time'] = round(engine_stat.get('avg'), 3)
         if engine_stat.get('avg') > settings['outgoing']['request_timeout']:
@@ -574,7 +593,9 @@ def preferences():
                   themes=themes,
                   plugins=plugins,
                   allowed_plugins=allowed_plugins,
-                  theme=get_current_theme_name())
+                  theme=get_current_theme_name(),
+                  extensions=default_extensions(),
+                  selected_extensions=selected_extensions)
 
 
 @app.route('/image_proxy', methods=['GET'])
@@ -584,9 +605,7 @@ def image_proxy():
     if not url:
         return '', 400
 
-    h = hashlib.sha256(url + settings['server']['secret_key'].encode('utf-8')).hexdigest()
-
-    if h != request.args.get('h'):
+    if secret_hash(url) != request.args.get('h'):
         return '', 400
 
     headers = dict_subset(request.headers, {'If-Modified-Since', 'If-None-Match'})
@@ -683,6 +702,23 @@ def clear_cookies():
     for cookie_name in request.cookies:
         resp.delete_cookie(cookie_name)
     return resp
+
+
+@app.route('/video_links', methods=['GET'])
+def video_links():
+    video_url = request.args.get('url')
+
+    extensions = request.preferences.get_value('extensions')
+
+    data = {'preferred': [],
+            'filtered': []}
+
+    if video_url and secret_hash(video_url) == request.args.get('h'):
+        data['preferred'], data['filtered'] = extract_video_links(video_url, extensions)
+
+    result = json.dumps(data)
+
+    return Response(response=result, mimetype='application/json')
 
 
 def run():
