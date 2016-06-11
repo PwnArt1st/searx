@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 
 '''
@@ -49,6 +50,7 @@ from flask import (
     redirect, send_from_directory
 )
 from flask.ext.babel import Babel, gettext, format_date
+from flask.json import jsonify
 from searx import settings, searx_dir
 from searx.engines import (
     categories, engines, get_engines_stats, engine_shortcuts
@@ -64,8 +66,9 @@ from searx.search import Search
 from searx.query import Query
 from searx.autocomplete import searx_bang, backends as autocomplete_backends
 from searx.plugins import plugins
-from searx.preferences import Preferences
+from searx.preferences import Preferences, ValidationException
 from searx.video_links import extract_video_links, default_extensions
+
 
 # check if the pyopenssl, ndg-httpsclient, pyasn1 packages are installed.
 # They are needed for SSL connection without trouble, see #298
@@ -704,21 +707,23 @@ def clear_cookies():
     return resp
 
 
-@app.route('/video_links', methods=['GET'])
-def video_links():
-    video_url = request.args.get('url')
 
-    extensions = request.preferences.get_value('extensions')
-
-    data = {'preferred': [],
-            'filtered': []}
-
-    if video_url and secret_hash(video_url) == request.args.get('h'):
-        data['preferred'], data['filtered'] = extract_video_links(video_url, extensions)
-
-    result = json.dumps(data)
-
-    return Response(response=result, mimetype='application/json')
+@app.route('/config')
+def config():
+    return jsonify({'categories': categories.keys(),
+                    'engines': [{'name': engine_name,
+                                 'categories': engine.categories,
+                                 'enabled': not engine.disabled}
+                                for engine_name, engine in engines.items()],
+                    'plugins': [{'name': plugin.name,
+                                 'enabled': plugin.default_on}
+                                for plugin in plugins],
+                    'instance_name': settings['general']['instance_name'],
+                    'locales': settings['locales'],
+                    'default_locale': settings['ui']['default_locale'],
+                    'autocomplete': settings['search']['autocomplete'],
+                    'safe_search': settings['search']['safe_search'],
+                    'default_theme': settings['ui']['default_theme']})
 
 
 def run():
