@@ -25,7 +25,7 @@ paging = True
 language_support = True
 
 # search-url
-url = 'https://duckduckgo.com/html?{query}&s={offset}'
+url = 'http://3g2upl4pq6kufc4m.onion/html?{query}'
 
 # specific xpath variables
 result_xpath = '//div[@class="result results_links results_links_deep web-result "]'  # noqa
