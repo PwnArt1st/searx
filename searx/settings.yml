@@ -1,22 +1,22 @@
 
 general:
     debug : False # Debug mode, only for development
-    instance_name : "searx" # displayed name
+    instance_name : "searx.space" # displayed name
 
 search:
     safe_search : 0 # Filter results. 0: None, 1: Moderate, 2: Strict
     autocomplete : "google" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "wikipedia" - leave blank to turn it off by default
 
 server:
-    port : 80
-    bind_address : "192.168.1.9" # address to listen on
-    secret_key : "4f5e7db3a36fa67cf74d33c7cf8deaad" # change this!
-    base_url : http://searx.codenix.org # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
+    port : 8888
+    bind_address : "127.0.0.1" # address to listen on
+    secret_key : "oimate" #hange this!
+    base_url : https://searx.space # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
     image_proxy : False # Proxying image results through searx
 
 ui:
     themes_path : "" # Custom ui themes path - leave it blank if you didn't change
-    default_theme : oscar # ui theme
+    default_theme : oscar-neue # ui theme
     default_locale : "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
 
 outgoing: # communication with search engines
@@ -41,6 +41,17 @@ engines:
   - name : arch linux wiki
     engine : archlinux
     shortcut : al
+
+  - name : archive is
+    engine : xpath
+    search_url : https://archive.is/{query}
+    url_xpath : (//div[@class="TEXT-BLOCK"]/a)/@href
+    title_xpath : (//div[@class="TEXT-BLOCK"]/a)
+    content_xpath : //div[@class="TEXT-BLOCK"]/ul/li
+    categories : general
+    timeout : 7.0
+    disabled : True
+    shortcut : ai
 
   - name : base
     engine : base
@@ -296,9 +307,9 @@ engines:
     engine : kickass
     shortcut : ka
 
-  - name : soundcloud
-    engine : soundcloud
-    shortcut : sc
+##  - name : soundcloud
+##    engine : soundcloud
+##    shortcut : sc
 
   - name : stackoverflow
     engine : stackoverflow
