@@ -100,6 +100,7 @@ class ResultContainer(object):
         self.suggestions = set()
         self.spell_suggestions = set()
         self.answers = set()
+        self.number_of_results = 0
 
     def extend(self, engine_name, results):
         for result in list(results):
@@ -111,6 +112,9 @@ class ResultContainer(object):
                 results.remove(result)
             elif 'infobox' in result:
                 self._merge_infobox(result)
+                results.remove(result)
+            elif 'number_of_results' in result:
+                self.number_of_results = max(self.number_of_results, result['number_of_results'])
                 results.remove(result)
 
         with RLock():

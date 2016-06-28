@@ -1,13 +1,13 @@
 .result_header {
-    margin-bottom:5px;
-    font-size: 20px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    font-size: 16px;
 
     .favicon {
         margin-bottom:-3px;
     }
     
     a {
-        vertical-align: bottom !important;
         color: @black;
         text-decoration: none;
 
@@ -21,16 +21,15 @@
         
         .highlight {
             background-color: @dim-gray;
-            vertical-align: bottom !important;
             // Chrome hack: bold is different size than normal
             // https://stackoverflow.com/questions/20713988/weird-text-alignment-issue-in-css-when-bolded-lucida-sans
-            line-height: 1,1em;
         }
     }
 }
 
 .result-content {
-    margin-top: 5px;
+    margin-top: 2px;
+    margin-bottom: 0;
     word-wrap: break-word;
     color: @dark-gray;
     font-size: 13px;
@@ -53,7 +52,7 @@
 // default formating of results
 .result-default, .result-code, .result-torrent, .result-videos, .result-map {
     clear: both;
-    padding: 25px 20px;
+    padding: 2px 4px;
     &:hover{
         background-color: @dim-gray;
     }
@@ -92,7 +91,7 @@
     }
 
     .in{
-        margin-bottom: 20px;
+        margin-bottom: 8px;
     }
 }
 
@@ -148,51 +147,4 @@
 .label-default {
     color: @gray;
     background: transparent;
-}
-
-// clickable row in video links tables
-.clickable-tr {
-    cursor: pointer;
-}
-
-// highlight for active columns/headers
-.tbl-highlight {
-    background-color: #f8f8f8;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-}
-
-// sort & search video table icons
-.th-icon {
-    padding-left: 0.2em;
-    cursor: pointer;
-}
-
-// rows filtered out
-.filtered {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-// proper text & icons aligning in video links table headers
-.th-tbl {
-    display: table;
-    width: 100%;
-
-    >div {
-        display: table-row;
-
-        >div {
-            display: table-cell;
-        }
-
-        div.th-text {
-            text-align: start;
-        }
-
-        div.th-icons {
-            text-align: end;
-            white-space: nowrap;
-        }
-    }
 }

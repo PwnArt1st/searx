@@ -231,6 +231,7 @@ class Preferences(object):
 
         self.engines = EnginesSetting('engines', choices=engines)
         self.plugins = PluginsSetting('plugins', choices=plugins)
+        self.unknown_params = {}
 
     def parse_cookies(self, input_data):
         for user_setting_name, user_setting in input_data.iteritems():
@@ -274,4 +275,6 @@ class Preferences(object):
             user_setting.save(user_setting_name, resp)
         self.engines.save(resp)
         self.plugins.save(resp)
+        for k, v in self.unknown_params.items():
+            resp.set_cookie(k, v, max_age=COOKIE_MAX_AGE)
         return resp
