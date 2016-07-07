@@ -79,7 +79,7 @@ def response(resp):
 
     pods = search_results.xpath(pods_xpath)
     result_chunks = []
-    result_content = None
+    result_content = ""
     for pod in pods:
         pod_id = pod.xpath(pod_id_xpath)[0]
         pod_title = pod.xpath(pod_title_xpath)[0]
