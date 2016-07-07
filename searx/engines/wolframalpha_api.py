@@ -97,7 +97,8 @@ def response(resp):
             if content and pod_id not in image_pods:
 
                 if pod_is_result or not result_content:
-                    if pod_id != "Input": result_content = "%s: %s" % (pod_title, content)
+                    if pod_id != "Input":
+                        result_content = "%s: %s" % (pod_title, content)
 
                 # if no input pod was found, title is first plaintext pod
                 if not infobox_title:
@@ -127,4 +128,3 @@ def response(resp):
                     'content': result_content})
 
     return results
-

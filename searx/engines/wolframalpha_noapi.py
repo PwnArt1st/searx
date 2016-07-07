@@ -102,7 +102,8 @@ def response(resp):
                     result_chunks.append({'label': pod_title, 'value': subpod['plaintext']})
 
                 if pod_is_result or not result_content:
-                    if pod_id != "Input": result_content = pod_title + ': ' + subpod['plaintext']
+                    if pod_id != "Input":
+                        result_content = pod_title + ': ' + subpod['plaintext']
 
             elif 'img' in subpod:
                 result_chunks.append({'label': pod_title, 'image': subpod['img']})
