@@ -49,7 +49,7 @@ from flask import (
     Flask, request, render_template, url_for, Response, make_response,
     redirect, send_from_directory
 )
-from flask.ext.babel import Babel, gettext, format_date, format_decimal
+from flask_babel import Babel, gettext, format_date, format_decimal
 from flask.json import jsonify
 from searx import settings, searx_dir
 from searx.engines import (
@@ -715,6 +715,7 @@ def config():
     return jsonify({'categories': categories.keys(),
                     'engines': [{'name': engine_name,
                                  'categories': engine.categories,
+                                 'shortcut': engine.shortcut,
                                  'enabled': not engine.disabled}
                                 for engine_name, engine in engines.items()],
                     'plugins': [{'name': plugin.name,
@@ -756,6 +757,7 @@ class ReverseProxyPathFix(object):
 
     :param app: the WSGI application
     '''
+
     def __init__(self, app):
         self.app = app
 
