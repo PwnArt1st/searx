@@ -96,6 +96,7 @@ engines:
   - name : ddg definitions
     engine : duckduckgo_definitions
     shortcut : ddd
+    weight : 2
     disabled : True
 
   - name : digg
@@ -117,6 +118,7 @@ engines:
   - name : wikidata
     engine : wikidata
     shortcut : wd
+    weight : 2
 
   - name : duckduckgo
     engine : duckduckgo
