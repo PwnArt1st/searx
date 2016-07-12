@@ -28,7 +28,7 @@ class TestWolframAlphaNoAPIEngine(SearxTestCase):
         request = Request(headers={'Referer': referer_url})
 
         # test failure
-        json = '''
+        json = r'''
         {"queryresult" : {
             "success" : false,
             "error" : false,
@@ -42,7 +42,7 @@ class TestWolframAlphaNoAPIEngine(SearxTestCase):
         self.assertEqual(wolframalpha_noapi.response(response), [])
 
         # test basic case
-        json = '''
+        json = r'''
         {"queryresult" : {
             "success" : true,
             "error" : false,
@@ -145,7 +145,7 @@ class TestWolframAlphaNoAPIEngine(SearxTestCase):
         self.assertIn('result_plaintext', results[1]['content'])
 
         # test calc
-        json = """
+        json = r"""
         {"queryresult" : {
             "success" : true,
             "error" : false,
