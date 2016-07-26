@@ -52,7 +52,8 @@ def request(query, params):
 def response(resp):
     results = []
 
-    response_json = loads(resp.text)
+    dom = html.fromstring(resp.text)
+    regex = re.compile(r'3\.jpg.*$')
 
     # parse results
     for result in response_json['photos']:

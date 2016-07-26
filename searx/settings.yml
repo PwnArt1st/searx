@@ -1,6 +1,5 @@
-
 general:
-    debug : False # Debug mode, only for development
+    debug : True # Debug mode, only for development
     instance_name : "searx.space" # displayed name
 
 search:
@@ -16,7 +15,7 @@ server:
 
 ui:
     themes_path : "" # Custom ui themes path - leave it blank if you didn't change
-    default_theme : oscar-neue # ui theme
+    default_theme : oscar # ui theme
     default_locale : "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
 
 outgoing: # communication with search engines
@@ -57,10 +56,10 @@ engines:
     engine : base
     shortcut : bs
 
-  - name : wikipedia
-    engine : wikipedia
-    shortcut : wp
-    base_url : 'https://{language}.wikipedia.org/'
+#  - name : wikipedia
+#    engine : wikipedia
+#    shortcut : wp
+#    base_url : 'https://{language}.wikipedia.org/'
 
   - name : bing
     engine : bing
@@ -107,6 +106,7 @@ engines:
   - name : ddg definitions
     engine : duckduckgo_definitions
     shortcut : ddd
+    weight : 2
     disabled : True
 
   - name : digg
@@ -125,9 +125,10 @@ engines:
     categories : science
     shortcut : ew
 
-  - name : wikidata
-    engine : wikidata
-    shortcut : wd
+#  - name : wikidata
+#    engine : wikidata
+#    shortcut : wd
+#    weight : 2
 
   - name : duckduckgo
     engine : duckduckgo
@@ -167,10 +168,10 @@ engines:
     shortcut : frk
     disabled : True
 
-  - name : gigablast
-    engine : gigablast
-    shortcut : gb
-    disabled : True
+#  - name : gigablast
+#    engine : gigablast
+#    shortcut : gb
+#    disabled : True
 
   - name : gitlab
     engine : xpath
@@ -188,9 +189,9 @@ engines:
     engine : github
     shortcut : gh
 
-  - name : google
-    engine : google
-    shortcut : go
+#  - name : google
+#    engine : google
+#    shortcut : go
 
   - name : google images
     engine : google_images
@@ -254,6 +255,12 @@ engines:
     disabled : True
     shortcut : habr
 
+  - name : ina
+    engine : ina
+    shortcut : in
+    timeout : 6.0
+    disabled : True
+
   - name : mixcloud
     engine : mixcloud
     shortcut : mc
@@ -307,9 +314,14 @@ engines:
     engine : kickass
     shortcut : ka
 
-##  - name : soundcloud
-##    engine : soundcloud
-##    shortcut : sc
+  - name : scanr_structures
+    shortcut: scs
+    engine : scanr_structures
+    disabled : True
+
+ # - name : soundcloud
+ #   engine : soundcloud
+ #   shortcut : sc
 
   - name : stackoverflow
     engine : stackoverflow
