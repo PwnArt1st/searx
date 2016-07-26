@@ -13,6 +13,7 @@
 from urllib import urlencode
 from json import loads, dumps
 from dateutil import parser
+from searx.utils import html_to_text
 
 # engine dependent config
 categories = ['science']
@@ -71,7 +72,7 @@ def response(resp):
                         'title': result['label'],
                         # 'thumbnail': thumbnail,
                         'img_src': thumbnail,
-                        'content': content})
+                        'content': html_to_text(content)})
 
     # return results
     return results

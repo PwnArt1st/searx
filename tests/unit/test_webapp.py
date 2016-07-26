@@ -39,7 +39,7 @@ class ViewsTestCase(SearxTestCase):
                                                 spell_suggestions=set(),
                                                 infoboxes=[],
                                                 results=self.test_results,
-                                                number_of_results=len(self.test_results),
+                                                results_number=lambda: 3,
                                                 results_length=lambda: len(self.test_results))
 
         webapp.Search.search = search_mock
@@ -97,7 +97,7 @@ class ViewsTestCase(SearxTestCase):
         )
 
         self.assertIn(
-            '<opensearch:totalResults>2</opensearch:totalResults>',
+            '<opensearch:totalResults>3</opensearch:totalResults>',
             result.data
         )
 
