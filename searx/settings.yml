@@ -88,6 +88,16 @@ engines:
   - name : btdigg
     engine : btdigg
     shortcut : bt
+    
+  - name : crossref
+    engine : json_engine
+    paging : True
+    search_url : http://search.crossref.org/dois?q={query}&page={pageno}
+    url_query : doi
+    title_query : title
+    content_query : fullCitation
+    categories : science
+    shortcut : cr
 
   - name : currency
     engine : currency_convert
@@ -205,7 +215,7 @@ engines:
   - name : google scholar
     engine : xpath
     paging : True
-    search_url : https://scholar.google.com/scholar?start={pageno}&q={query}&hl=en&as_sdt=0,5&as_vis=1'
+    search_url : https://scholar.google.com/scholar?start={pageno}&q={query}&hl=en&as_sdt=0,5&as_vis=1
     results_xpath : //div[@class="gs_r"]/div[@class="gs_ri"]
     url_xpath : .//h3/a/@href
     title_xpath : .//h3/a
@@ -276,6 +286,19 @@ engines:
     timeout : 6.0
     disabled : True
 
+  - name : microsoft academic
+    engine : json_engine
+    paging : True
+    search_url : https://academic.microsoft.com/api/search/GetEntityResults?query=%40{query}%40&filters=&offset={pageno}&limit=8&correlationId=undefined
+    results_query : results
+    url_query : u
+    title_query : dn
+    content_query : d
+    page_size : 8
+    first_page_num : 0
+    categories : science
+    shortcut : ma
+
   - name : mixcloud
     engine : mixcloud
     shortcut : mc
@@ -288,6 +311,18 @@ engines:
   - name : openstreetmap
     engine : openstreetmap
     shortcut : osm
+
+  - name : openrepos
+    engine : xpath
+    paging : True
+    search_url : https://openrepos.net/search/node/{query}?page={pageno}
+    url_xpath : //li[@class="search-result"]//h3[@class="title"]/a/@href
+    title_xpath : //li[@class="search-result"]//h3[@class="title"]/a
+    content_xpath : //li[@class="search-result"]//div[@class="search-snippet-info"]//p[@class="search-snippet"]
+    categories : files
+    timeout : 4.0
+    disabled : True
+    shortcut : or
 
   - name : photon
     engine : photon
@@ -324,10 +359,6 @@ engines:
     page_size : 25
     timeout : 10.0
     disabled : True
-
-  - name : kickass
-    engine : kickass
-    shortcut : ka
 
   - name : scanr_structures
     shortcut: scs
