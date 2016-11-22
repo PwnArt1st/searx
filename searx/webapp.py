@@ -401,6 +401,12 @@ def index():
     Supported outputs: html, json, csv, rss.
     """
 
+    # Because of abuse, I deactivate format=rss for get requests on my engine
+    if request.args and request.args.get('format') == 'rss':
+        return render(
+            'index.html',
+        )
+
     if request.form.get('q') is None:
         return render(
             'index.html',
