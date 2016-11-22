@@ -519,6 +519,14 @@ def about():
     )
 
 
+@app.route('/faq', methods=['GET'])
+def faq():
+    """Render faq page"""
+    return render(
+        'faq.html',
+    )
+
+
 @app.route('/autocompleter', methods=['GET', 'POST'])
 def autocompleter():
     """Return autocompleter results"""
