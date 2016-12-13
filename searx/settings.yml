@@ -192,6 +192,7 @@ engines:
   - name : gigablast
     engine : gigablast
     shortcut : gb
+    timeout : 3.0
     disabled: True
 
   - name : gitlab
@@ -250,8 +251,8 @@ engines:
     engine        : xpath
     search_url    : https://play.google.com/store/search?q={query}&c=movies
     url_xpath     : //a[@class="title"]/@href
-    title_xpath   : //a[@class="title"]
-    content_xpath : //a[@class="subtitle"]
+    title_xpath   : //a[@class="title"]/@title
+    content_xpath : //a[contains(@class, "subtitle")]
     categories : videos
     shortcut : gpm
     disabled : True
@@ -282,8 +283,8 @@ engines:
     engine : xpath
     paging : True
     search_url : https://habrahabr.ru/search/page{pageno}/?q={query}
-    url_xpath : //div[@class="search_results"]//a[@class="post_title"]/@href
-    title_xpath : //div[@class="search_results"]//a[@class="post_title"]
+    url_xpath : //div[@class="search_results"]//a[contains(@class, "post__title_link")]/@href
+    title_xpath : //div[@class="search_results"]//a[contains(@class, "post__title_link")]
     content_xpath : //div[@class="search_results"]//div[contains(@class, "content")]
     categories : it
     timeout : 4.0
@@ -543,6 +544,18 @@ engines:
     # You can use without an API key, but you are limited to 1000 words/day
     # See : http://mymemory.translated.net/doc/usagelimits.php
     # api_key : ''
+
+  - name : voat
+    engine: xpath
+    shortcut: vo
+    categories: social media
+    search_url : https://voat.co/search?q={query}
+    url_xpath : //p[contains(@class, "title")]/a/@href
+    title_xpath : //p[contains(@class, "title")]/a
+    content_xpath : //span[@class="domain"]
+    timeout : 10.0
+    disabled : True
+
 
 #The blekko technology and team have joined IBM Watson! -> https://blekko.com/
 #  - name : blekko images

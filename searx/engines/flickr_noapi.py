@@ -34,7 +34,8 @@ paging = True
 time_range_support = True
 time_range_dict = {'day': 60 * 60 * 24,
                    'week': 60 * 60 * 24 * 7,
-                   'month': 60 * 60 * 24 * 7 * 4}
+                   'month': 60 * 60 * 24 * 7 * 4,
+                   'year': 60 * 60 * 24 * 7 * 52}
 
 
 def build_flickr_url(user_id, photo_id):
@@ -102,16 +103,15 @@ def response(resp):
 
         title = photo.get('title', '')
 
-        content = '<span class="photo-author">' +\
-                  photo['username'] +\
-                  '</span><br />'
+        author = photo['username']
 
         # append result
         results.append({'url': url,
                         'title': title,
                         'img_src': img_src,
                         'thumbnail_src': thumbnail_src,
-                        'content': content,
+                        'content': '',
+                        'author': author,
                         'template': 'images.html'})
 
     return results

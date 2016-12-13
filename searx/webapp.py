@@ -40,7 +40,7 @@ except:
     logger.critical("cannot import dependency: pygments")
     from sys import exit
     exit(1)
-
+from cgi import escape
 from datetime import datetime, timedelta
 from urllib import urlencode
 from urlparse import urlparse, urljoin
@@ -439,8 +439,10 @@ def index():
     for result in results:
         if output_format == 'html':
             if 'content' in result and result['content']:
-                result['content'] = highlight_content(result['content'][:1024], search_query.query.encode('utf-8'))
-            result['title'] = highlight_content(result['title'], search_query.query.encode('utf-8'))
+                result['content'] = highlight_content(escape(result['content'][:1024]),
+                                                      search_query.query.encode('utf-8'))
+            result['title'] = highlight_content(escape(result['title'] or u''),
+                                                search_query.query.encode('utf-8'))
         else:
             if result.get('content'):
                 result['content'] = html_to_text(result['content']).strip()
@@ -474,7 +476,10 @@ def index():
     if output_format == 'json':
         return Response(json.dumps({'query': search_query.query,
                                     'number_of_results': number_of_results,
-                                    'results': results}),
+                                    'results': results,
+                                    'answers': list(result_container.answers),
+                                    'infoboxes': result_container.infoboxes,
+                                    'suggestions': list(result_container.suggestions)}),
                         mimetype='application/json')
     elif output_format == 'csv':
         csv = UnicodeWriter(cStringIO.StringIO())
@@ -613,6 +618,8 @@ def preferences():
             if e.timeout > settings['outgoing']['request_timeout']:
                 stats[e.name]['warn_timeout'] = True
 
+    # get first element [0], the engine time,
+    # and then the second element [1] : the time (the first one is the label)
     for engine_stat in get_engines_stats()[0][1]:
         stats[engine_stat.get('name')]['time'] = round(engine_stat.get('avg'), 3)
         if engine_stat.get('avg') > settings['outgoing']['request_timeout']:
